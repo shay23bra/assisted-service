@@ -200,12 +200,7 @@
                 "hive-api",
                 "api-sync"
             ],
-            "enabled": true,
-            "baseBranchPatterns": [
-                "master",
-                "release-ocm-2.16",
-                "release-ocm-2.17"
-            ]
+            "enabled": true
         }
     ]
 }
