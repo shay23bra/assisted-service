@@ -132,6 +132,9 @@
             "matchDepTypes": [
                 "indirect"
             ],
+            "excludePackageNames": [
+                "github.com/openshift/hive/apis"
+            ],
             "enabled": false
         },
         {
@@ -244,10 +247,11 @@
             "matchDepTypes": [
                 "indirect"
             ],
-            "groupName": "Hive API Synchronization",
+            "groupName": "Hive API Synchronization - Indirect",
             "addLabels": [
                 "hive-api",
-                "api-sync"
+                "api-sync",
+                "indirect-deps"
             ],
             "enabled": true
         }
