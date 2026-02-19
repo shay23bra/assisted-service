@@ -9,7 +9,8 @@
     "prConcurrentLimit": 0,
     "enabledManagers": [
         "custom.regex",
-        "tekton"
+        "tekton",
+        "gomod"
     ],
     "tekton": {
         "managerFilePatterns": [
@@ -118,6 +119,12 @@
         }
     ],
     "packageRules": [
+        {
+            "matchManagers": [
+                "gomod"
+            ],
+            "enabled": false
+        },
         {
             "matchManagers": [
                 "gomod"
