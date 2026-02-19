@@ -18,6 +18,23 @@
             "/^.tekton/*/"
         ]
     },
+    "gomod": {
+        "postUpdateOptions": [
+            "gomodUpdateImportPaths",
+            "gomodTidy"
+        ],
+        "packageRules": [
+            {
+                "matchManagers": [
+                    "gomod"
+                ],
+                "matchDepTypes": [
+                    "indirect"
+                ],
+                "enabled": true
+            }
+        ]
+    },
     "customManagers": [
         {
             "customType": "regex",
