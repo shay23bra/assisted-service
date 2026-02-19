@@ -126,6 +126,15 @@
             "enabled": false
         },
         {
+            "matchManagers": [
+                "gomod"
+            ],
+            "matchDepTypes": [
+                "indirect"
+            ],
+            "enabled": false
+        },
+        {
             "groupName": "Go Builder",
             "addLabels": [
                 "golang"
@@ -217,6 +226,23 @@
             ],
             "matchPackageNames": [
                 "github.com/openshift/hive/apis"
+            ],
+            "groupName": "Hive API Synchronization",
+            "addLabels": [
+                "hive-api",
+                "api-sync"
+            ],
+            "enabled": true
+        },
+        {
+            "matchManagers": [
+                "gomod"
+            ],
+            "matchPackageNames": [
+                "github.com/openshift/hive/apis"
+            ],
+            "matchDepTypes": [
+                "indirect"
             ],
             "groupName": "Hive API Synchronization",
             "addLabels": [
