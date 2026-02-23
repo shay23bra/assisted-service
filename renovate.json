@@ -10,8 +10,7 @@
     "enabledManagers": [
         "custom.regex",
         "tekton",
-        "gomod",
-        "rpm-lockfile"
+        "gomod"
     ],
     "tekton": {
         "managerFilePatterns": [
@@ -205,18 +204,6 @@
                 "registry.access.redhat.com/ubi9/ubi-minimal"
             ],
             "enabled": false
-        },
-        {
-            "groupName": "RPM lockfile refresh",
-            "addLabels": [
-                "rpm-lockfile"
-            ],
-            "schedule": [
-                "on Saturday"
-            ],
-            "matchManagers": [
-                "rpm-lockfile"
-            ]
         },
         {
             "matchManagers": [
