@@ -9,28 +9,12 @@
     "prConcurrentLimit": 0,
     "enabledManagers": [
         "custom.regex",
-        "tekton"
+        "tekton",
+        "rpm-lockfile"
     ],
     "tekton": {
         "managerFilePatterns": [
             "/^.tekton/*/"
-        ]
-    },
-    "gomod": {
-        "postUpdateOptions": [
-            "gomodUpdateImportPaths",
-            "gomodTidy"
-        ],
-        "packageRules": [
-            {
-                "matchManagers": [
-                    "gomod"
-                ],
-                "matchDepTypes": [
-                    "indirect"
-                ],
-                "enabled": true
-            }
         ]
     },
     "customManagers": [
@@ -119,33 +103,6 @@
     ],
     "packageRules": [
         {
-            "matchManagers": [
-                "gomod"
-            ],
-            "matchPackageNames": [
-                "github.com/openshift/hive/apis"
-            ],
-            "enabled": true
-        },
-        {
-            "matchManagers": [
-                "gomod"
-            ],
-            "enabled": false
-        },
-        {
-            "matchManagers": [
-                "gomod"
-            ],
-            "matchDepTypes": [
-                "indirect"
-            ],
-            "excludePackageNames": [
-                "github.com/openshift/hive/apis"
-            ],
-            "enabled": false
-        },
-        {
             "groupName": "Go Builder",
             "addLabels": [
                 "golang"
@@ -232,36 +189,16 @@
             "enabled": false
         },
         {
-            "matchManagers": [
-                "gomod"
-            ],
-            "matchPackageNames": [
-                "github.com/openshift/hive/apis"
-            ],
-            "groupName": "Hive API Synchronization",
+            "groupName": "RPM lockfile refresh",
             "addLabels": [
-                "hive-api",
-                "api-sync"
+                "rpm-lockfile"
             ],
-            "enabled": true
-        },
-        {
+            "schedule": [
+                "on Saturday"
+            ],
             "matchManagers": [
-                "gomod"
-            ],
-            "matchPackageNames": [
-                "github.com/openshift/hive/apis"
-            ],
-            "matchDepTypes": [
-                "indirect"
-            ],
-            "groupName": "Hive API Synchronization - Indirect",
-            "addLabels": [
-                "hive-api",
-                "api-sync",
-                "indirect-deps"
-            ],
-            "enabled": true
+                "rpm-lockfile"
+            ]
         }
     ]
 }
