@@ -37,6 +37,9 @@ type API interface {
 	   V2ListSupportedOperators Retrieves the list of supported operators.*/
 	V2ListSupportedOperators(ctx context.Context, params *V2ListSupportedOperatorsParams) (*V2ListSupportedOperatorsOK, error)
 	/*
+	   V2UpdateOperatorProperties Updates properties for an operator.*/
+	V2UpdateOperatorProperties(ctx context.Context, params *V2UpdateOperatorPropertiesParams) (*V2UpdateOperatorPropertiesOK, error)
+	/*
 	   V2ReportMonitoredOperatorStatus Controller API to report of monitored operators.*/
 	V2ReportMonitoredOperatorStatus(ctx context.Context, params *V2ReportMonitoredOperatorStatusParams) (*V2ReportMonitoredOperatorStatusOK, error)
 }
@@ -185,6 +188,31 @@ func (a *Client) V2ListSupportedOperators(ctx context.Context, params *V2ListSup
 		return nil, err
 	}
 	return result.(*V2ListSupportedOperatorsOK), nil
+
+}
+
+/*
+V2UpdateOperatorProperties Updates properties for an operator.
+*/
+func (a *Client) V2UpdateOperatorProperties(ctx context.Context, params *V2UpdateOperatorPropertiesParams) (*V2UpdateOperatorPropertiesOK, error) {
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "V2UpdateOperatorProperties",
+		Method:             "PUT",
+		PathPattern:        "/v2/supported-operators/{operator_name}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &V2UpdateOperatorPropertiesReader{formats: a.formats},
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*V2UpdateOperatorPropertiesOK), nil
 
 }
 

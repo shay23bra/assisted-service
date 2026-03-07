@@ -168,6 +168,9 @@ func NewAssistedInstallAPI(spec *loads.Document) *AssistedInstallAPI {
 		InstallerV2UpdateClusterUISettingsHandler: installer.V2UpdateClusterUISettingsHandlerFunc(func(params installer.V2UpdateClusterUISettingsParams, principal interface{}) middleware.Responder {
 			return middleware.NotImplemented("operation installer.V2UpdateClusterUISettings has not yet been implemented")
 		}),
+		OperatorsV2UpdateOperatorPropertiesHandler: operators.V2UpdateOperatorPropertiesHandlerFunc(func(params operators.V2UpdateOperatorPropertiesParams, principal interface{}) middleware.Responder {
+			return middleware.NotImplemented("operation operators.V2UpdateOperatorProperties has not yet been implemented")
+		}),
 		InstallerV2UploadLogsHandler: installer.V2UploadLogsHandlerFunc(func(params installer.V2UploadLogsParams, principal interface{}) middleware.Responder {
 			return middleware.NotImplemented("operation installer.V2UploadLogs has not yet been implemented")
 		}),
@@ -468,6 +471,8 @@ type AssistedInstallAPI struct {
 	ManifestsV2UpdateClusterManifestHandler manifests.V2UpdateClusterManifestHandler
 	// InstallerV2UpdateClusterUISettingsHandler sets the operation handler for the v2 update cluster UI settings operation
 	InstallerV2UpdateClusterUISettingsHandler installer.V2UpdateClusterUISettingsHandler
+	// OperatorsV2UpdateOperatorPropertiesHandler sets the operation handler for the v2 update operator properties operation
+	OperatorsV2UpdateOperatorPropertiesHandler operators.V2UpdateOperatorPropertiesHandler
 	// InstallerV2UploadLogsHandler sets the operation handler for the v2 upload logs operation
 	InstallerV2UploadLogsHandler installer.V2UploadLogsHandler
 	// InstallerV2CompleteInstallationHandler sets the operation handler for the v2 complete installation operation
@@ -770,6 +775,9 @@ func (o *AssistedInstallAPI) Validate() error {
 	}
 	if o.InstallerV2UpdateClusterUISettingsHandler == nil {
 		unregistered = append(unregistered, "installer.V2UpdateClusterUISettingsHandler")
+	}
+	if o.OperatorsV2UpdateOperatorPropertiesHandler == nil {
+		unregistered = append(unregistered, "operators.V2UpdateOperatorPropertiesHandler")
 	}
 	if o.InstallerV2UploadLogsHandler == nil {
 		unregistered = append(unregistered, "installer.V2UploadLogsHandler")
@@ -1174,6 +1182,10 @@ func (o *AssistedInstallAPI) initHandlerCache() {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
 	o.handlers["PUT"]["/v2/clusters/{cluster_id}/ui-settings"] = installer.NewV2UpdateClusterUISettings(o.context, o.InstallerV2UpdateClusterUISettingsHandler)
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/v2/supported-operators/{operator_name}"] = operators.NewV2UpdateOperatorProperties(o.context, o.OperatorsV2UpdateOperatorPropertiesHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}

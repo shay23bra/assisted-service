@@ -5839,6 +5839,20 @@ func init() {
             "description": "Array of feature IDs that affect bundle composition (e.g., [\"SNO\"] for Single Node OpenShift).",
             "name": "feature_ids",
             "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable NVIDIA GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "nvidia_enabled",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable AMD GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "amd_enabled",
+            "in": "query"
           }
         ],
         "responses": {
@@ -5893,6 +5907,20 @@ func init() {
             "collectionFormat": "multi",
             "description": "Array of feature IDs that affect bundle composition (e.g., [\"SNO\"] for Single Node OpenShift).",
             "name": "feature_ids",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable NVIDIA GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "nvidia_enabled",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable AMD GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "amd_enabled",
             "in": "query"
           }
         ],
@@ -6330,6 +6358,71 @@ func init() {
             "description": "Success.",
             "schema": {
               "$ref": "#/definitions/operator-properties"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/infra_error"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/infra_error"
+            }
+          },
+          "404": {
+            "description": "Error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "userAuth": []
+          }
+        ],
+        "description": "Updates properties for an operator.",
+        "tags": [
+          "operators"
+        ],
+        "operationId": "V2UpdateOperatorProperties",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The operator name.",
+            "name": "operator_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Operator properties to update.",
+            "name": "operator_properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/operator-properties"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "$ref": "#/definitions/error"
             }
           },
           "401": {
@@ -17303,6 +17396,20 @@ func init() {
             "description": "Array of feature IDs that affect bundle composition (e.g., [\"SNO\"] for Single Node OpenShift).",
             "name": "feature_ids",
             "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable NVIDIA GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "nvidia_enabled",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable AMD GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "amd_enabled",
+            "in": "query"
           }
         ],
         "responses": {
@@ -17357,6 +17464,20 @@ func init() {
             "collectionFormat": "multi",
             "description": "Array of feature IDs that affect bundle composition (e.g., [\"SNO\"] for Single Node OpenShift).",
             "name": "feature_ids",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable NVIDIA GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "nvidia_enabled",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable AMD GPU support for OpenShift AI bundle. Only applies to openshift-ai bundle.",
+            "name": "amd_enabled",
             "in": "query"
           }
         ],
@@ -17794,6 +17915,71 @@ func init() {
             "description": "Success.",
             "schema": {
               "$ref": "#/definitions/operator-properties"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/infra_error"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/infra_error"
+            }
+          },
+          "404": {
+            "description": "Error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "userAuth": []
+          }
+        ],
+        "description": "Updates properties for an operator.",
+        "tags": [
+          "operators"
+        ],
+        "operationId": "V2UpdateOperatorProperties",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The operator name.",
+            "name": "operator_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Operator properties to update.",
+            "name": "operator_properties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/operator-properties"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "$ref": "#/definitions/error"
             }
           },
           "401": {

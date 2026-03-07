@@ -283,6 +283,9 @@ type OperatorsAPI interface {
 	/* V2ListSupportedOperators Retrieves the list of supported operators. */
 	V2ListSupportedOperators(ctx context.Context, params operators.V2ListSupportedOperatorsParams) middleware.Responder
 
+	/* V2UpdateOperatorProperties Updates properties for an operator. */
+	V2UpdateOperatorProperties(ctx context.Context, params operators.V2UpdateOperatorPropertiesParams) middleware.Responder
+
 	/* V2ReportMonitoredOperatorStatus Controller API to report of monitored operators. */
 	V2ReportMonitoredOperatorStatus(ctx context.Context, params operators.V2ReportMonitoredOperatorStatusParams) middleware.Responder
 }
@@ -627,6 +630,11 @@ func HandlerAPI(c Config) (http.Handler, *operations.AssistedInstallAPI, error) 
 		ctx := params.HTTPRequest.Context()
 		ctx = storeAuth(ctx, principal)
 		return c.InstallerAPI.V2UpdateClusterUISettings(ctx, params)
+	})
+	api.OperatorsV2UpdateOperatorPropertiesHandler = operators.V2UpdateOperatorPropertiesHandlerFunc(func(params operators.V2UpdateOperatorPropertiesParams, principal interface{}) middleware.Responder {
+		ctx := params.HTTPRequest.Context()
+		ctx = storeAuth(ctx, principal)
+		return c.OperatorsAPI.V2UpdateOperatorProperties(ctx, params)
 	})
 	api.InstallerV2UploadLogsHandler = installer.V2UploadLogsHandlerFunc(func(params installer.V2UploadLogsParams, principal interface{}) middleware.Responder {
 		ctx := params.HTTPRequest.Context()
