@@ -207,6 +207,10 @@ func (m *Manifests) DeleteClusterManifestInternal(ctx context.Context, params op
 
 	_, _, path := m.getManifestPathsFromParameters(ctx, params.Folder, &params.FileName)
 
+	if err = m.validateManifestFileNames(ctx, params.ClusterID, []string{params.FileName}); err != nil {
+		return err
+	}
+
 	err = m.deleteManifest(ctx, params.ClusterID, path)
 	if err != nil {
 		return err
@@ -288,6 +292,10 @@ func (m *Manifests) V2DownloadClusterManifest(ctx context.Context, params operat
 		params.Folder = &defaultFolder
 	}
 	_, fileName, path := m.getManifestPathsFromParameters(ctx, params.Folder, &params.FileName)
+
+	if err := m.validateManifestFileNames(ctx, params.ClusterID, []string{params.FileName}); err != nil {
+		return common.GenerateErrorResponder(err)
+	}
 
 	// Verify that the manifests are created for a valid cluster
 	// to align kube-api and ocm behavior.

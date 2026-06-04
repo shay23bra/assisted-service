@@ -4137,6 +4137,13 @@ func (b *bareMetalInventory) refreshClusterStatus(
 	return updatedCluster, nil
 }
 
+func validateAdditionalName(name string) error {
+	if strings.Contains(name, "..") {
+		return errors.New("additional_name must not contain path traversal characters")
+	}
+	return nil
+}
+
 func (b *bareMetalInventory) V2GetPresignedForClusterFiles(ctx context.Context, params installer.V2GetPresignedForClusterFilesParams) middleware.Responder {
 	log := logutil.FromContext(ctx, b.log)
 
@@ -4155,6 +4162,9 @@ func (b *bareMetalInventory) V2GetPresignedForClusterFiles(ctx context.Context, 
 	if params.FileName == constants.ManifestFolder {
 		if params.AdditionalName != nil {
 			additionalName := *params.AdditionalName
+			if err = validateAdditionalName(additionalName); err != nil {
+				return common.NewApiError(http.StatusBadRequest, err)
+			}
 			fullFileName = manifests.GetManifestObjectName(params.ClusterID, additionalName)
 			downloadFilename = additionalName[strings.LastIndex(additionalName, "/")+1:]
 		} else {
